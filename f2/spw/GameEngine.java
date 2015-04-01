@@ -18,7 +18,7 @@ public class GameEngine implements KeyListener, GameReporter{
 	private SpaceShip v;	
 	
 	private Timer timer;
-	
+	private int heart = 0;
 	private long score = 0;
 	private double difficulty = 0.1;
 	
@@ -72,9 +72,14 @@ public class GameEngine implements KeyListener, GameReporter{
 		Rectangle2D.Double er;
 		for(Enemy e : enemies){
 			er = e.getRectangle();
+			
 			if(er.intersects(vr)){
-				die();
-				return;
+				heart++;
+				if(heart > 5){
+					die();
+					return;
+				}
+				
 			}
 		}
 	}
