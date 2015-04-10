@@ -21,5 +21,6 @@ public abstract class Sprite {
 	
 	public Double getRectangle() {
 		return new Rectangle2D.Double(x, y, width, height);
+		//return new Rectangle2D.Double(x+(width*0.125), y+(height*0.125), width*0.75, height*0.75);
 	}
 }
