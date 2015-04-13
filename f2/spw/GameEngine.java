@@ -14,12 +14,15 @@ import javax.swing.Timer;
 public class GameEngine implements KeyListener, GameReporter{
 	GamePanel gp;
 		
-	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();	
+	private ArrayList<Enemy> enemies = new ArrayList<Enemy>();
+	private ArrayList<Bullet> bullets = new ArrayList<Bullet>();
 	private SpaceShip v;	
 	
 	private Timer timer;
+	private Timer timer2;
+	
 	private int h = 6;
-	private int heart ;//= 3
+	private int heart;//= 3
 	private long score = 0;
 	private double difficulty = 0.1;
 	
@@ -37,11 +40,20 @@ public class GameEngine implements KeyListener, GameReporter{
 			}
 		});
 		timer.setRepeats(true);
-		
+		timer2 = new Timer(160, new ActionListener(){
+			public void actionPerformed(ActionEvent arg0){
+				shoot();
+			}
+		});	
 	}
-	
+	public void shoot(){
+		Bullet b = new Bullet((v.x) + (v.width/2) - 5, v.y);
+		gp.sprites.add(b);
+		bullets.add(b);
+	}
 	public void start(){
 		timer.start();
+		timer2.start();
 	}
 	
 	private void generateEnemy(){
@@ -54,7 +66,16 @@ public class GameEngine implements KeyListener, GameReporter{
 		if(Math.random() < difficulty){
 			generateEnemy();
 		}
-		
+		Iterator<Bullet> b_iter = bullets.iterator();
+		while(b_iter.hasNext()){
+			Bullet b = b_iter.next();
+			b.proceed();
+			
+			if(!b.isAlive()){
+				b_iter.remove();
+				gp.sprites.remove(b);
+			}
+		}
 		Iterator<Enemy> e_iter = enemies.iterator();
 		while(e_iter.hasNext()){
 			Enemy e = e_iter.next();

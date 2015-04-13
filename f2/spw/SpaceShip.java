@@ -11,7 +11,7 @@ public class SpaceShip extends Sprite{
 
 	int step = 8;
 	private Image b1;
-	private String img = "D:\\spaceship.gif" ;
+	//private String img = "D:\\spaceship.gif" ;
 	
 	public SpaceShip(int x, int y, int width, int height) {
 		super(x, y, width, height);
@@ -23,12 +23,11 @@ public class SpaceShip extends Sprite{
 		//g.setColor(Color.GREEN);
 		//g.fillRect(x, y, width, height);
 		try{
-			b1 = ImageIO.read(new File(img));
+			b1 = ImageIO.read(new File("D:\\spaceship.gif"));
 		} catch(IOException e){
 			e.printStackTrace();
 		}
 		g.drawImage(b1, x, y, width, height, null);
-		
 	}
 
 	public void move_x(int direction){
